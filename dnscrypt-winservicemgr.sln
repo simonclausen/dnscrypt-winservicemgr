@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnscrypt-winservicemgr", "dnscrypt-winservicemgr\dnscrypt-winservicemgr.csproj", "{63D71C9D-0F1A-4518-8F56-225F1CBB28BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63D71C9D-0F1A-4518-8F56-225F1CBB28BE}.Debug|x86.ActiveCfg = Debug|x86
+		{63D71C9D-0F1A-4518-8F56-225F1CBB28BE}.Debug|x86.Build.0 = Debug|x86
+		{63D71C9D-0F1A-4518-8F56-225F1CBB28BE}.Release|x86.ActiveCfg = Release|x86
+		{63D71C9D-0F1A-4518-8F56-225F1CBB28BE}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

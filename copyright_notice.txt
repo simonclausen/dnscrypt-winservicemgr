@@ -1,0 +1,10 @@
+DNSCrypt Windows Service Manager is based on dnscrypt-winclient,
+originally developed and Copyright (c) 2012 by Patrick Webster:
+
+https://github.com/Noxwizard/dnscrypt-winclient
+
+DNSCrypt Windows Service Manager includes a few elements from the
+original program. These are Copyright (c) 2012 Patrick Webster.
+
+The rest of DNSCrypt Windows Service Manager is developed and 
+Copyright (c) 2014 by Simon Christian Clausen.
