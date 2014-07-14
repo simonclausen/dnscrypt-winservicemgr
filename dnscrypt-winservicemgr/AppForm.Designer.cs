@@ -37,18 +37,14 @@ namespace dnscrypt_winservicemgr
             this.label2 = new System.Windows.Forms.Label();
             this.DNSlistbox = new System.Windows.Forms.CheckedListBox();
             this.protoUDP = new System.Windows.Forms.RadioButton();
-            this.ipv6Radio = new System.Windows.Forms.RadioButton();
             this.protoTCP = new System.Windows.Forms.RadioButton();
-            this.ipv4Radio = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button
@@ -65,13 +61,14 @@ namespace dnscrypt_winservicemgr
             // 
             this.providerSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.providerSelect.FormattingEnabled = true;
-            this.providerSelect.Items.AddRange(new object[] {
+            /*this.providerSelect.Items.AddRange(new object[] {
             "CloudNS (no logs, DNSSEC, AUS)",
             "DNSCrypt.eu (no logs, DNSSEC, EU)",
             "OpenDNS (Anycast)",
             "OpenNIC (no logs, JPN)",
             "OpenNIC (no logs, EU)",
-            "Soltysiak.com (no logs, DNSSEC, EU)"});
+            "Soltysiak.com (no logs, DNSSEC, EU)"});*/
+            this.providerSelect.Items.AddRange(providerMgr.getFullNames());
             this.providerSelect.Location = new System.Drawing.Point(14, 19);
             this.providerSelect.Name = "providerSelect";
             this.providerSelect.Size = new System.Drawing.Size(206, 21);
@@ -94,11 +91,11 @@ namespace dnscrypt_winservicemgr
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(93, 293);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(209, 26);
+            this.label1.Size = new System.Drawing.Size(215, 26);
             this.label1.TabIndex = 4;
-            this.label1.Text = "DNSCrypt Windows Service Manager v0.1\nby Simon Clausen (https://dnscrypt.eu)";
+            this.label1.Text = "DNSCrypt Windows Service Manager v0.2 \nby Simon Clausen (https://simonclausen.dk)" +
+                "";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // hideAdaptersCheckbox
             // 
@@ -144,16 +141,6 @@ namespace dnscrypt_winservicemgr
             this.protoUDP.Text = "UDP";
             this.protoUDP.UseVisualStyleBackColor = true;
             // 
-            // ipv6Radio
-            // 
-            this.ipv6Radio.AutoSize = true;
-            this.ipv6Radio.Location = new System.Drawing.Point(70, 14);
-            this.ipv6Radio.Name = "ipv6Radio";
-            this.ipv6Radio.Size = new System.Drawing.Size(47, 17);
-            this.ipv6Radio.TabIndex = 11;
-            this.ipv6Radio.Text = "IPv6";
-            this.ipv6Radio.UseVisualStyleBackColor = true;
-            // 
             // protoTCP
             // 
             this.protoTCP.AutoSize = true;
@@ -163,18 +150,6 @@ namespace dnscrypt_winservicemgr
             this.protoTCP.TabIndex = 13;
             this.protoTCP.Text = "TCP";
             this.protoTCP.UseVisualStyleBackColor = true;
-            // 
-            // ipv4Radio
-            // 
-            this.ipv4Radio.AutoSize = true;
-            this.ipv4Radio.Checked = true;
-            this.ipv4Radio.Location = new System.Drawing.Point(13, 14);
-            this.ipv4Radio.Name = "ipv4Radio";
-            this.ipv4Radio.Size = new System.Drawing.Size(47, 17);
-            this.ipv4Radio.TabIndex = 10;
-            this.ipv4Radio.TabStop = true;
-            this.ipv4Radio.Text = "IPv4";
-            this.ipv4Radio.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -218,23 +193,11 @@ namespace dnscrypt_winservicemgr
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Status";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.ipv4Radio);
-            this.groupBox4.Controls.Add(this.ipv6Radio);
-            this.groupBox4.Location = new System.Drawing.Point(257, 160);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(122, 39);
-            this.groupBox4.TabIndex = 18;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "IP";
-            // 
             // ApplicationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(394, 326);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.hideAdaptersCheckbox);
             this.Controls.Add(this.label2);
@@ -250,8 +213,6 @@ namespace dnscrypt_winservicemgr
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,14 +228,11 @@ namespace dnscrypt_winservicemgr
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckedListBox DNSlistbox;
         private System.Windows.Forms.RadioButton protoUDP;
-        private System.Windows.Forms.RadioButton ipv6Radio;
         private System.Windows.Forms.RadioButton protoTCP;
-        private System.Windows.Forms.RadioButton ipv4Radio;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.GroupBox groupBox3;
-        private GroupBox groupBox4;
     }
 }
 

@@ -20,7 +20,7 @@ namespace dnscrypt_winservicemgr
             XmlTextReader reader;
             try
             {
-                string xmlURL = "https://dnscrypt.eu/dnscrypt-winservicemgr/updatecheck.xml";
+                string xmlURL = "http://simonclausen.dk/dnscrypt-winservicemgr/updatecheck.xml";
                 reader = new XmlTextReader(xmlURL);
                 reader.MoveToContent(); 
                 string elementName = ""; 

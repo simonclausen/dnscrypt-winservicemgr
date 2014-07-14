@@ -1,0 +1,43 @@
+[Version]
+Class=IEXPRESS
+SEDVersion=3
+[Options]
+PackagePurpose=ExtractOnly
+ShowInstallProgramWindow=0
+HideExtractAnimation=0
+UseLongFileName=1
+InsideCompressed=0
+CAB_FixedSize=0
+CAB_ResvCodeSigning=0
+RebootMode=I
+InstallPrompt=%InstallPrompt%
+DisplayLicense=%DisplayLicense%
+FinishMessage=%FinishMessage%
+TargetName=%TargetName%
+FriendlyName=%FriendlyName%
+AppLaunched=%AppLaunched%
+PostInstallCmd=%PostInstallCmd%
+AdminQuietInstCmd=%AdminQuietInstCmd%
+UserQuietInstCmd=%UserQuietInstCmd%
+SourceFiles=SourceFiles
+[Strings]
+InstallPrompt=
+DisplayLicense=
+FinishMessage=
+TargetName=C:\Users\Vimdows\Dropbox\Projects\GitHub\dnscrypt-winservicemgr\DNSCrypt Windows Service Package\DNSCrypt Windows Service Manager Package.exe
+FriendlyName=DNSCrypt Windows Service Manager Package
+AppLaunched=
+PostInstallCmd=
+AdminQuietInstCmd=
+UserQuietInstCmd=
+FILE0="dnscrypt-proxy.exe"
+FILE1="dnscrypt-winservicemgr.exe"
+FILE2="hostip.exe"
+FILE3="libsodium-4.dll"
+[SourceFiles]
+SourceFiles0=C:\Users\Vimdows\Dropbox\Projects\GitHub\dnscrypt-winservicemgr\DNSCrypt Windows Service Package\
+[SourceFiles0]
+%FILE0%=
+%FILE1%=
+%FILE2%=
+%FILE3%=

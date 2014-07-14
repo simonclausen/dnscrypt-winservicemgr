@@ -27,10 +27,7 @@ namespace dnscrypt_winservicemgr
         // Load the provider manager
         ProviderMgr providerMgr = new ProviderMgr();
 
-        // Keep track of current selected provider details
-        private String host4 = "";
-        private String host6 = "";
-        private String key = "";
+        // Keep track of current selected provider name
         private String name = "";
 
         private static readonly Random random = new Random();
@@ -39,7 +36,7 @@ namespace dnscrypt_winservicemgr
         {
             InitializeComponent();
             refreshNICList(false);
-            this.providerSelect.SelectedIndex = 1;
+            this.providerSelect.SelectedIndex = 0;
             checkStatus();
             UpdateChecker.checkVersion();
         }
@@ -56,8 +53,6 @@ namespace dnscrypt_winservicemgr
                 this.button.Text = "Disable";
                 this.button.Enabled = true;
                 this.providerSelect.Enabled = false;
-                this.ipv4Radio.Enabled = false;
-                this.ipv6Radio.Enabled = false;
                 this.protoTCP.Enabled = false;
                 this.protoUDP.Enabled = false;
                 this.statusLabel.ForeColor = Color.Green;
@@ -69,8 +64,6 @@ namespace dnscrypt_winservicemgr
                 this.button.Text = "Enable";
                 this.button.Enabled = true;
                 this.providerSelect.Enabled = true;
-                this.ipv4Radio.Enabled = true;
-                this.ipv6Radio.Enabled = true;
                 this.protoTCP.Enabled = true;
                 this.protoUDP.Enabled = true;
                 this.statusLabel.ForeColor = Color.DarkRed;
@@ -80,8 +73,6 @@ namespace dnscrypt_winservicemgr
 
         private void refreshNICList(Boolean showHidden)
         {
-            this.ipv6Radio.Enabled = false;
-
             NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
             foreach (NetworkInterface adapter in nics)
             {
@@ -105,11 +96,6 @@ namespace dnscrypt_winservicemgr
                     else
                     {
                         DNSlistbox.Items.Add(item);
-                    }
-
-                    if (item.getIpv6())
-                    {
-                        this.ipv6Radio.Enabled = true;
                     }
                 }
             }
@@ -205,25 +191,13 @@ namespace dnscrypt_winservicemgr
             else
             {
                 // Install service (run dnscrypt-proxy --install)
-                this.cryptProc.Arguments = " --install";
+                this.cryptProc.Arguments = " -R \"" + this.name + "\" -L \"" + Directory.GetCurrentDirectory() + "\\dnscrypt-resolvers.csv\" --install";
                 this.statusLabel.Text = "Installing";
 
-                // Edit registry
-                if (this.ipv4Radio.Checked)
-                {
-                    Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\dnscrypt-proxy\\Parameters", "ResolverAddress", host4);
-                }
-                else if (this.ipv6Radio.Checked)
-                {
-                    Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\dnscrypt-proxy\\Parameters", "ResolverAddress", host6);
-                }
                 if (this.protoTCP.Checked)
                 {
                     Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\dnscrypt-proxy\\Parameters", "TCPOnly", "1", RegistryValueKind.DWord);
                 }
-
-                Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\dnscrypt-proxy\\Parameters", "ProviderKey", key);
-                Registry.SetValue("HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\dnscrypt-proxy\\Parameters", "ProviderName", name);
             }
 
             // Update visuals
@@ -266,35 +240,8 @@ namespace dnscrypt_winservicemgr
 
             if (!providerItems[0].isEmpty)
             {
-                if (providerItems.Count == 1)
-                {
-                    this.host4 = providerItems[0].getHost4();
-                    this.host6 = providerItems[0].getHost6();
-                    this.key = providerItems[0].getKey();
-                    this.name = providerItems[0].getName();
-                }
-                else
-                {
-                    int select = randomNumber(0, providerItems.Count);
-                    this.host4 = providerItems[select].getHost4();
-                    this.host6 = providerItems[select].getHost6();
-                    this.key = providerItems[select].getKey();
-                    this.name = providerItems[select].getName();
-                }
+                this.name = providerItems[0].getName();
             }
-        }
-
-        public static int randomNumber(int min, int max)
-        {
-            lock (random)
-            {
-                return random.Next(min, max);
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
